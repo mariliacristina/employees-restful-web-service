@@ -1,30 +1,80 @@
 const searchForm = document.getElementById("search-form");
-//const searchDataForm = document.getElementById("search-data-form");
+const searchFor = document.getElementById("search-for");
+const employeeData = document.getElementById("employee-data");
 
-searchForm.addEventListener("submit", function(event) {
-  //searchEmployee(searchFor.value, employeeData.value);
-  
-  const searchFor = document.getElementById("search-for");
-  const employeeData = document.getElementById("employee-data");
-
+searchForm.addEventListener("submit", function (event) {
   searchEmployee(searchFor.value, employeeData.value);
 
-  switch(searchFor.value) {
-    case "cpf":
-      employeeData.mask = "000.000.000-00";  
+  event.preventDefault();
+});
 
+
+employeeData.addEventListener("keypress", function (event) {
+  /**
+nonInput: elements we consider nonInput
+dataMask: we mask data-mask elements by default
+watchInputs: watch for dynamically added inputs by default
+watchDataMask: by default we disabled the watcher for dynamically
+added data-mask elements by default (performance reasons)
+**/
+
+  $.jMaskGlobals = {
+    maskElements: "input,td,span,div",
+    dataMaskAttr: "*[data-mask]",
+    dataMask: true,
+    watchInterval: 300,
+    watchInputs: true,
+    watchDataMask: false,
+    byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
+    translation: {
+      0: { pattern: /\d/ },
+      9: { pattern: /\d/, optional: true },
+      "#": { pattern: /\d/, recursive: true },
+      A: { pattern: /[a-zA-Z0-9]/ },
+      S: { pattern: /[a-zA-Z]/ },
+    },
+  };
+
+  var controlKeys = [
+    8, // backspace
+    16, // shift
+    17, // ctrl
+    35, // end
+    36, // home
+    37, // ←
+    39, // →
+    46, // delete
+    13, // enter
+    32, // space
+  ];
+
+  switch (searchFor.value) {
+    case "name":
+      employeeData.placeholder = "Digite aqui...";
+
+      // name mask
+      //$("#employee-data").mask('Z',{translation: {'Z': {pattern: /[a-zA-Z ]/, recursive: true}}});
       break;
 
+    case "cpf":
+      employeeData.placeholder = "Ex.: 000.000.000-00";
+
+      // cpf mask
+      /*
+      $("#employee-data")
+        .mask("999.999.999-99")
+        .on("keydown", function (event) {
+          var key = event.key; // key value
+          var keyCode = event.keyCode || event.which; // key code
+
+          if (isNaN(key) && !~controlKeys.indexOf(keyCode)) return false;
+        });
+      */
+      break;
+    
+    case "date":
+      employeeData.placeholder = "dd/mm/yyyy";
   }
-
-  /*
-  const submit = document.createElement("input");
-  submit.type = "submit";
-  submit.value = "Buscar";
-  searchDataForm.appendChild(submit);
-  */
-
-  event.preventDefault();
 });
 
 function searchEmployee(searchForValue, employeeDataValue) {
@@ -42,26 +92,26 @@ function searchEmployee(searchForValue, employeeDataValue) {
 const getEmployees = (employees) => {
   // getting the employees table
   const employeesTable = document.getElementById("employees-table");
-  employeesTable.textContent = '';
+  employeesTable.textContent = "";
 
   // creating the head of the table
   const thead = document.createElement("thead");
   const trHead = document.createElement("tr");
 
   const thName = document.createElement("th");
-  thName.innerHTML = 'Nome';
+  thName.innerHTML = "Nome";
   const thCpf = document.createElement("th");
-  thCpf.innerHTML = 'CPF';
+  thCpf.innerHTML = "CPF";
   const thPosition = document.createElement("th");
-  thPosition.innerHTML = 'Cargo';
+  thPosition.innerHTML = "Cargo";
   const thDate = document.createElement("th");
-  thDate.innerHTML = 'Data de Cadastro';
+  thDate.innerHTML = "Data de Cadastro";
   const thUf = document.createElement("th");
-  thUf.innerHTML = 'UF de Nascimento';
+  thUf.innerHTML = "UF de Nascimento";
   const thSalary = document.createElement("th");
-  thSalary.innerHTML = 'Salário';
+  thSalary.innerHTML = "Salário";
   const thStatus = document.createElement("th");
-  thStatus.innerHTML = 'Status';
+  thStatus.innerHTML = "Status";
 
   trHead.appendChild(thName);
   trHead.appendChild(thCpf);
@@ -76,8 +126,8 @@ const getEmployees = (employees) => {
 
   const tbody = document.createElement("tbody");
   const tr = document.createElement("tr");
-  
-  for(value of Object.values(employees)) {
+
+  for (value of Object.values(employees)) {
     const td = document.createElement("td");
     td.innerHTML = value;
     tr.appendChild(td);
