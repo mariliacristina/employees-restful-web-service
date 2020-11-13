@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employees</title>
+  </head>
+  <body>
+    <div id="search-employees">
+      <h1>Buscar Funcionário</h1>
+
+      <form id="search-form">
+        <label for="search-for">Buscar por:</label>
+        <select name="search-for" id="search-for">
+          <option value="name">Nome</option>
+          <option value="cpf">CPF</option>
+          <option value="position">Cargo</option>
+          <option value="date">Data de Cadastro</option>
+          <option value="uf">UF de Nascimento</option>
+          <option value="salary">Faixa Salarial</option>
+          <option value="status">Status</option>
+        </select>
+        <br />
+        <input
+          type="text"
+          id="employee-data"
+          name="employee-data"
+          placeholder="Digite aqui..."
+        /><br />
+        <input type="submit" value="Buscar" />
+      </form>
+
+      <div id="employees">
+        <ul id="employees-list"></ul>
+      </div>
+    </div>
+
+    <div id="add-employee"></div>
+
+    <div id="delete-employee"></div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script src="./scripts/getEmployees.js"></script>
+</html>
