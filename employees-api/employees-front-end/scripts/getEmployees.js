@@ -97,7 +97,18 @@ function searchEmployee(searchForValue, employeeDataValue) {
     .catch((error) => console.log(error));
 }
 
+// showing the employees returned by the server
+// employees can be of two types: an object or an array of objects
 const showEmployees = (employees) => {
+  // handling the case that no employee is returned
+  if(Array.isArray(employees)) {
+    if(employees.length == 0) alert('Nenhum funcionário encontrado!');
+    return;
+  }else {
+    if(employees === "") alert('Nenhum funcionário encontrado!');
+    return;
+  }
+
   // getting the employees table
   const employeesTable = document.getElementById("employees-table");
   employeesTable.textContent = "";
