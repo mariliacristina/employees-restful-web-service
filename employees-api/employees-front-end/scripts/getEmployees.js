@@ -48,7 +48,8 @@ added data-mask elements by default (performance reasons)
   ];
 
   switch (searchFor.value) {
-    case ("name", "position"):
+    case "name":
+    case "position":
       employeeData.placeholder = "Digite aqui...";
 
       // name mask
@@ -78,7 +79,7 @@ added data-mask elements by default (performance reasons)
     case "salary":
       employeeData.placeholder = "min - max";
       break;
-    
+
     case "status":
       employeeData.placeholder = "ATIVO, INATIVO ou BLOQUEADO";
       break;
@@ -101,12 +102,22 @@ function searchEmployee(searchForValue, employeeDataValue) {
 // employees can be of two types: an object or an array of objects
 const showEmployees = (employees) => {
   // handling the case that no employee is returned
-  if(Array.isArray(employees)) {
-    if(employees.length == 0) alert('Nenhum funcionário encontrado!');
-    return;
-  }else {
-    if(employees === "") alert('Nenhum funcionário encontrado!');
-    return;
+  if (Array.isArray(employees)) {
+    if (employees.length == 0) {
+      // getting the employees table
+      const employeesTable = document.getElementById("employees-table");
+      employeesTable.textContent = "";
+      alert("Nenhum funcionário encontrado!");
+      return;
+    }
+  } else {
+    if (employees === "") {
+      // getting the employees table
+      const employeesTable = document.getElementById("employees-table");
+      employeesTable.textContent = "";
+      alert("Nenhum funcionário encontrado!");
+      return;
+    }
   }
 
   // getting the employees table
