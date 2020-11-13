@@ -58,9 +58,24 @@ function searchEmployeesByName(employeeName) {
 
   const lines = data.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].split(";");
-    if (line[3] === employeeName) {
-      return line[0];
+    const line = lines[i].split(";"); // separating the fields of an employee
+    
+    // getting the name of the current employee
+    const name = line[3];
+
+    // checking if the current employee is the searched one
+    if (name === employeeName) {
+      // getting the other fields
+      const date = line[0];
+      const position = line[1];
+      const cpf = line[2];
+      const uf = line[4];
+      const salary = line[5];
+      const status = line[6];
+
+      const employee = {name, cpf, position, date, uf, salary, status};
+    
+      return employee;
     }
   }
 }
