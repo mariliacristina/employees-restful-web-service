@@ -2,11 +2,9 @@
 const express = require("express");
 const app = express();
 
-// importing lib cors
 const cors = require("cors");
-
-// importing lib fs
 const fs = require("fs");
+const path = require('path');
 
 /*
 const employees = [
@@ -54,15 +52,15 @@ function searchEmployees(searchFor, employeeData) {
 
 function searchEmployeesByName(employeeName) {
   data = fs.readFileSync(
-    "/home/marilia/Documents/employees-api/src/fake-db/funcionarios.txt",
+    path.resolve(__dirname, "./fake-db/funcionarios.txt"),
     "utf-8"
   );
 
-  const linhas = data.split(/\r?\n/);
-  for (let i = 0; i < linhas.length; i++) {
-    const linha = linhas[i].split(";");
-    if (linha[3] === employeeName) {
-      return linha[0];
+  const lines = data.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].split(";");
+    if (line[3] === employeeName) {
+      return line[0];
     }
   }
 }
