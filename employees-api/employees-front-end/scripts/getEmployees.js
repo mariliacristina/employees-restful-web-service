@@ -73,6 +73,11 @@ added data-mask elements by default (performance reasons)
 
     case "date":
       employeeData.placeholder = "dd/mm/yyyy";
+      break;
+
+    case "salary":
+      employeeData.placeholder = "min - max";
+      break;
   }
 });
 
@@ -89,6 +94,7 @@ function searchEmployee(searchForValue, employeeDataValue) {
 }
 
 const showEmployees = (employees) => {
+  console.log(employees);
   // getting the employees table
   const employeesTable = document.getElementById("employees-table");
   employeesTable.textContent = "";
@@ -124,12 +130,12 @@ const showEmployees = (employees) => {
   employeesTable.appendChild(thead);
 
   const tbody = document.createElement("tbody");
-  
+
   // if it was returned just one employee
   if (!Array.isArray(employees)) {
     const tr = document.createElement("tr");
 
-    for(value of Object.values(employees)) {
+    for (value of Object.values(employees)) {
       const td = document.createElement("td");
       td.innerHTML = value;
       tr.appendChild(td);
@@ -137,11 +143,11 @@ const showEmployees = (employees) => {
 
     tbody.appendChild(tr);
     employeesTable.appendChild(tbody);
-  }else{
+  } else {
     employees.map((employee) => {
       const tr = document.createElement("tr");
 
-      for(value of Object.values(employee)) {
+      for (value of Object.values(employee)) {
         const td = document.createElement("td");
         td.innerHTML = value;
         tr.appendChild(td);
