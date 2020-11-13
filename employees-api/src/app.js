@@ -43,9 +43,7 @@ function searchEmployees(searchFor, employeeData) {
   if (searchFor === "date") return searchEmployeesByDate(employeeData);
   if (searchFor === 'uf') return searchEmployeesByUf(employeeData);
   if (searchFor === 'salary') return searchEmployeesBySalary(employeeData);
-  
-  /*if (searchFor === 'status') return searchEmployeesByStatus(employeeData);
-    */
+  if (searchFor === 'status') return searchEmployeesByStatus(employeeData);
 }
 
 function searchEmployeesByName(employeeName) {
@@ -248,4 +246,37 @@ function searchEmployeesBySalary(employeeSalary) {
   return employees;
 }
 
+function searchEmployeesByStatus(employeeStatus) {
+  data = fs.readFileSync(
+    path.resolve(__dirname, "./fake-db/funcionarios.txt"),
+    "utf-8"
+  );
+
+  const employees = [];
+
+  const lines = data.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].split(";"); // separating the fields of an employee
+
+    // getting the status of the current employee
+    const status = line[6];
+
+    // checking if the current employee is the searched one
+    if (status === employeeStatus) {
+      // getting the other fields
+      const date = line[0];
+      const position = line[1];
+      const cpf = line[2];
+      const name = line[3];
+      const uf = line[4];
+      const salary = line[5];
+
+      const employee = { name, cpf, position, date, uf, salary, status };
+
+      employees.push(employee);
+    }
+  }
+
+  return employees;
+}
 

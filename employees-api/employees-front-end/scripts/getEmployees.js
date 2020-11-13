@@ -78,6 +78,10 @@ added data-mask elements by default (performance reasons)
     case "salary":
       employeeData.placeholder = "min - max";
       break;
+    
+    case "status":
+      employeeData.placeholder = "ATIVO, INATIVO ou BLOQUEADO";
+      break;
   }
 });
 
@@ -94,7 +98,6 @@ function searchEmployee(searchForValue, employeeDataValue) {
 }
 
 const showEmployees = (employees) => {
-  console.log(employees);
   // getting the employees table
   const employeesTable = document.getElementById("employees-table");
   employeesTable.textContent = "";
