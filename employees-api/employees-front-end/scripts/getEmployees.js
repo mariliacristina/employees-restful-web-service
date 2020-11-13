@@ -8,7 +8,6 @@ searchForm.addEventListener("submit", function (event) {
   event.preventDefault();
 });
 
-
 employeeData.addEventListener("keypress", function (event) {
   /**
 nonInput: elements we consider nonInput
@@ -49,7 +48,7 @@ added data-mask elements by default (performance reasons)
   ];
 
   switch (searchFor.value) {
-    case "name":
+    case ("name", "position"):
       employeeData.placeholder = "Digite aqui...";
 
       // name mask
@@ -71,7 +70,7 @@ added data-mask elements by default (performance reasons)
         });
       */
       break;
-    
+
     case "date":
       employeeData.placeholder = "dd/mm/yyyy";
   }
@@ -85,11 +84,11 @@ function searchEmployee(searchForValue, employeeDataValue) {
         employeeData: employeeDataValue,
       },
     })
-    .then((response) => getEmployees(response.data))
+    .then((response) => showEmployees(response.data))
     .catch((error) => console.log(error));
 }
 
-const getEmployees = (employees) => {
+const showEmployees = (employees) => {
   // getting the employees table
   const employeesTable = document.getElementById("employees-table");
   employeesTable.textContent = "";
@@ -125,16 +124,33 @@ const getEmployees = (employees) => {
   employeesTable.appendChild(thead);
 
   const tbody = document.createElement("tbody");
-  const tr = document.createElement("tr");
+  
+  // if it was returned just one employee
+  if (!Array.isArray(employees)) {
+    const tr = document.createElement("tr");
 
-  for (value of Object.values(employees)) {
-    const td = document.createElement("td");
-    td.innerHTML = value;
-    tr.appendChild(td);
+    for(value of Object.values(employees)) {
+      const td = document.createElement("td");
+      td.innerHTML = value;
+      tr.appendChild(td);
+    }
+
+    tbody.appendChild(tr);
+    employeesTable.appendChild(tbody);
+  }else{
+    employees.map((employee) => {
+      const tr = document.createElement("tr");
+
+      for(value of Object.values(employee)) {
+        const td = document.createElement("td");
+        td.innerHTML = value;
+        tr.appendChild(td);
+      }
+
+      tbody.appendChild(tr);
+      employeesTable.appendChild(tbody);
+    });
   }
-
-  tbody.appendChild(tr);
-  employeesTable.appendChild(tbody);
   /*
   const employeeItem = document.createElement("li");
   employeeItem.innerHTML = `Nome: ${employees.salary}`;
