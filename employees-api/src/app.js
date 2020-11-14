@@ -19,8 +19,8 @@ app.get("/api/employees", (req, res) => {
 
 app.post("/api/employees/add", (req, res) => {
   const employee = req.body;
-  addEmployee(employee);
-  res.json({ status: "Usuário inserido com sucesso" });
+  const msg = addEmployee(employee);
+  res.json({ status: msg });
 });
 
 // server listening  on port 3000
@@ -283,41 +283,50 @@ function searchEmployeesByStatus(employeeStatus) {
   return employees;
 }
 
-// removes the line from the data
-function removeLine(data, line) {}
+// removes the line from the funcionarios.txt
+function removeLine(employeeLine) {
+  const fileData = fs
+    .readFileSync(
+      path.resolve(__dirname, "./fake-db/funcionarios.txt"),
+      "utf-8"
+    )
+    .split(/\r?\n/);
+
+  // removes the line and the one above it (because its a blank line)
+  const firstPart = fileData.slice(0, employeeLine - 1);
+  const secondPart = fileData.slice(employeeLine + 1, fileData.length);
+  const newData = firstPart.concat(secondPart);
+
+  // deletes the content of the file
+  fs.writeFileSync(path.resolve(__dirname, "./fake-db/funcionarios.txt"), "");
+
+  // writes the new content
+  newData.forEach((line, index) => {
+    if (index !== newData.length - 1) line += "\r\n";
+
+    fs.writeFileSync(
+      path.resolve(__dirname, "./fake-db/funcionarios.txt"),
+      line,
+      { flag: "a+" }
+    );
+  });
+}
 
 // add employee to the end of the file funcionarios.txt
 function addEmployee(employee) {
+  // returned message stating if it was an insert or update operation
+  let msg = "Usuário inserido com sucesso!";
+
   // search the employee. If it exists, delete its line and add a new one after
   const employeeInfo = searchEmployeesByCpf(employee.cpf);
+
+  // update operation
   if (employeeInfo !== undefined) {
     const employeeLine = employeeInfo[1];
 
-    const fileData = fs
-      .readFileSync(
-        path.resolve(__dirname, "./fake-db/funcionarios.txt"),
-        "utf-8"
-      )
-      .split(/\r?\n/);
+    removeLine(employeeLine);
 
-    // removes the line and the one above it (because its a blank line)
-    const firstPart = fileData.slice(0, employeeLine - 1);
-    const secondPart = fileData.slice(employeeLine + 1, fileData.length);
-    const newData = firstPart.concat(secondPart);
-
-    // deletes the content of the file
-    fs.writeFileSync(path.resolve(__dirname, "./fake-db/funcionarios.txt"), "");
-
-    // writes the new content
-    newData.forEach((line, index) => {
-      if(index !== (newData.length-1)) line += "\r\n";
-
-      fs.writeFileSync(
-        path.resolve(__dirname, "./fake-db/funcionarios.txt"),
-        line,
-        { flag: "a+" }
-      );
-    });
+    msg = "Usuário atualizado com sucesso!";
   }
 
   let data = "\n";
@@ -345,5 +354,5 @@ function addEmployee(employee) {
     { flag: "a+" }
   );
 
-  return;
+  return msg;
 }
