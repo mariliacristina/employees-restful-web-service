@@ -5,24 +5,9 @@ const app = express();
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+const bodyParser = require("body-parser");
 
-/*
-const employees = [
-    {
-      name: 'Aluno1',
-      age: 12
-    },
-    {
-      name: 'Aluno2',
-      age: 13
-    },
-    {
-      name: 'Aluno3',
-      age: 14
-    }
-  ]
-*/
-
+app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/api/employees", (req, res) => {
@@ -32,6 +17,12 @@ app.get("/api/employees", (req, res) => {
   employees = searchEmployees(searchFor, employeeData);
   res.send(employees);
 });
+
+app.post("/api/employees/add", (req, res) => {
+  const employee = req.body;
+  addEmployee(employee);
+  res.json({ status: 'Usuário inserido com sucesso' });
+})
 
 // server listening  on port 3000
 app.listen(3000);
@@ -280,3 +271,14 @@ function searchEmployeesByStatus(employeeStatus) {
   return employees;
 }
 
+// add employee to the end of the file funcionarios.txt
+function addEmployee(employee) {
+  data = "\n";
+
+  data += employee.date + ";" + employee.position + ";" + employee.cpf + ";" 
+  + employee.name + ";" + employee.uf + ";" + employee.salary + ";" + employee.status + "\n";
+
+  fs.writeFileSync(path.resolve(__dirname, "./fake-db/funcionarios.txt"), data, {flag:'a+'});
+
+  return;
+}

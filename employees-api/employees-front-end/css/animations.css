@@ -1,0 +1,14 @@
+@keyframes right {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-right {
+  animation-name: right;
+  animation-duration: 300ms;
+}

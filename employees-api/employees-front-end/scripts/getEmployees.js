@@ -3,7 +3,7 @@ const searchFor = document.getElementById("search-for");
 const employeeData = document.getElementById("employee-data");
 
 searchForm.addEventListener("submit", function (event) {
-  searchEmployee(searchFor.value, employeeData.value);
+  getEmployee(searchFor.value, employeeData.value);
 
   event.preventDefault();
 });
@@ -86,7 +86,7 @@ added data-mask elements by default (performance reasons)
   }
 });
 
-function searchEmployee(searchForValue, employeeDataValue) {
+function getEmployee(searchForValue, employeeDataValue) {
   axios
     .get("http://localhost:3000/api/employees", {
       params: {

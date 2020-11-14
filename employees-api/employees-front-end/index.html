@@ -4,45 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employees</title>
+    <!--link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/animations.css" />
+    <link rel="stylesheet" href="./css/main-page.css">
+    <link rel="stylesheet" href="./css/sidebar.css"-->
   </head>
   <body>
-    <div id="search-employees">
-      <h1>Buscar Funcionário</h1>
+    <div id="main-page">
+      <aside class="animate-right sidebar">
+        <header>
+          <img src="#" alt="Employees" />
 
-      <form id="search-form">
-        <label for="search-for">Buscar por:</label>
-        <select name="search-for" id="search-for">
-          <option value="name">Nome</option>
-          <option value="cpf">CPF</option>
-          <option value="position">Cargo</option>
-          <option value="date">Data de Cadastro</option>
-          <option value="uf">UF de Nascimento</option>
-          <option value="salary">Faixa Salarial</option>
-          <option value="status">Status</option>
-        </select>
+          <a href="index.html">Buscar Funcionários</a>
+          <a href="add-employee.html">Inserir/Atualizar Funcionário</a>
+          <a href="delete-employee.html">Excluir Funcionário</a>
+        </header>
+      </aside>
 
-        <input
-          type="text"
-          id="employee-data"
-          name="employee-data"
-          placeholder="Digite aqui..."
-        />
-        <input type="submit" value="Buscar" />
-      </form>
+      <main class="main with-sidebar">
+        <div id="search-employees">
+          <h1>Buscar Funcionário</h1>
 
-      <!--form id="search-data-form"></form-->
+          <form id="search-form">
+            <label for="search-for">Buscar por:</label>
+            <select name="search-for" id="search-for">
+              <option value="name">Nome</option>
+              <option value="cpf">CPF</option>
+              <option value="position">Cargo</option>
+              <option value="date">Data de Cadastro</option>
+              <option value="uf">UF de Nascimento</option>
+              <option value="salary">Faixa Salarial</option>
+              <option value="status">Status</option>
+            </select>
 
-      <div id="employees">
-        <table id="employees-table"></table>
-      </div>
+            <input
+              type="text"
+              id="employee-data"
+              name="employee-data"
+              placeholder="Digite aqui..."
+            />
+            <input type="submit" value="Buscar" />
+          </form>
+
+          <div id="employees">
+            <table id="employees-table"></table>
+          </div>
+        </div>
+
+        <!--div id="add-employee">
+          <h1>Adicionar Funcionário</h1>
+        </div>
+
+        <div id="delete-employee"></div-->
+      </main>
     </div>
 
-    <div id="add-employee"></div>
-
-    <div id="delete-employee"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
+    <script src="./scripts/getEmployees.js"></script>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
-  <script src="./scripts/getEmployees.js"></script>
 </html>
