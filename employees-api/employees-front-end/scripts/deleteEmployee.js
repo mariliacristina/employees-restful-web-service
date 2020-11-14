@@ -1,5 +1,6 @@
 const deleteForm = document.getElementById("delete-form");
 
+// when submitting the delete form, calls the delete function
 deleteForm.addEventListener("submit", function (event) {
   const cpf = document.getElementById("cpf").value;
 

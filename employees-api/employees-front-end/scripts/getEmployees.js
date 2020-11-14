@@ -2,6 +2,7 @@ const searchForm = document.getElementById("search-form");
 const searchFor = document.getElementById("search-for");
 const employeeData = document.getElementById("employee-data");
 
+// when submitting the search form, calls the get function
 searchForm.addEventListener("submit", function (event) {
   getEmployee(searchFor.value, employeeData.value);
 
@@ -98,31 +99,25 @@ function getEmployee(searchForValue, employeeDataValue) {
     .catch((error) => console.log(error));
 }
 
-// showing the employees returned by the server
+// shows the employees returned by the server
 // employees can be of two types: an object or an array of objects
 const showEmployees = (employees) => {
+  // getting the employees table and cleaning it
+  const employeesTable = document.getElementById("employees-table");
+  employeesTable.textContent = "";
+
   // handling the case that no employee is returned
   if (Array.isArray(employees)) {
     if (employees.length == 0) {
-      // getting the employees table
-      const employeesTable = document.getElementById("employees-table");
-      employeesTable.textContent = "";
       alert("Nenhum funcionário encontrado!");
       return;
     }
   } else {
     if (employees === "") {
-      // getting the employees table
-      const employeesTable = document.getElementById("employees-table");
-      employeesTable.textContent = "";
       alert("Nenhum funcionário encontrado!");
       return;
     }
   }
-
-  // getting the employees table
-  const employeesTable = document.getElementById("employees-table");
-  employeesTable.textContent = "";
 
   // creating the head of the table
   const thead = document.createElement("thead");
