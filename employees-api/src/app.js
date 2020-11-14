@@ -23,6 +23,12 @@ app.post("/api/employees/add", (req, res) => {
   res.json({ status: msg });
 });
 
+app.delete("/api/employees/delete", (req, res) => {
+  const cpf = req.body.cpf;
+  const msg = deleteEmployee(cpf);
+  res.json({ status: msg });
+});
+
 // server listening  on port 3000
 app.listen(3000);
 
@@ -312,7 +318,7 @@ function removeLine(employeeLine) {
   });
 }
 
-// add employee to the end of the file funcionarios.txt
+// adds employee to the end of the file funcionarios.txt
 function addEmployee(employee) {
   // returned message stating if it was an insert or update operation
   let msg = "Usuário inserido com sucesso!";
@@ -354,5 +360,27 @@ function addEmployee(employee) {
     { flag: "a+" }
   );
 
+  return msg;
+}
+
+// deletes the employee with the employeeCpf
+function deleteEmployee(employeeCpf) {
+  // returned message
+  let msg;
+
+  // search the employee. If it exists, delete its line
+  const employeeInfo = searchEmployeesByCpf(employeeCpf);
+  
+  // delete operation
+  if (employeeInfo !== undefined) {
+    const employeeLine = employeeInfo[1];
+
+    removeLine(employeeLine);
+
+    msg = "Usuário removido com sucesso!";
+    return msg;
+  }
+
+  msg = "Usuário não existe!";
   return msg;
 }
