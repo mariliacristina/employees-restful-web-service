@@ -1,4 +1,3 @@
-// importing and instantiating express
 const express = require("express");
 const app = express();
 
@@ -21,20 +20,27 @@ app.get("/api/employees", (req, res) => {
 app.post("/api/employees/add", (req, res) => {
   const employee = req.body;
   addEmployee(employee);
-  res.json({ status: 'Usuário inserido com sucesso' });
-})
+  res.json({ status: "Usuário inserido com sucesso" });
+});
 
 // server listening  on port 3000
 app.listen(3000);
 
 function searchEmployees(searchFor, employeeData) {
   if (searchFor === "name") return searchEmployeesByName(employeeData);
-  if (searchFor === "cpf") return searchEmployeesByCpf(employeeData);
+
+  // serachEmployeeByCpf returns an array with the employee at the position 0 and its line number
+  // at the position 1 (line number is used in the updating function)
+  if (searchFor === "cpf") {
+    const employeeInfo = searchEmployeesByCpf(employeeData);
+    if (employeeInfo !== undefined) return employeeInfo[0];
+  }
+
   if (searchFor === "position") return searchEmployeesByPosition(employeeData);
   if (searchFor === "date") return searchEmployeesByDate(employeeData);
-  if (searchFor === 'uf') return searchEmployeesByUf(employeeData);
-  if (searchFor === 'salary') return searchEmployeesBySalary(employeeData);
-  if (searchFor === 'status') return searchEmployeesByStatus(employeeData);
+  if (searchFor === "uf") return searchEmployeesByUf(employeeData);
+  if (searchFor === "salary") return searchEmployeesBySalary(employeeData);
+  if (searchFor === "status") return searchEmployeesByStatus(employeeData);
 }
 
 function searchEmployeesByName(employeeName) {
@@ -67,6 +73,8 @@ function searchEmployeesByName(employeeName) {
   }
 }
 
+// returns an array with the employee at the position 0 and its line number
+// at the position 1 (line number is used in the updating function)
 function searchEmployeesByCpf(employeeCpf) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -92,7 +100,7 @@ function searchEmployeesByCpf(employeeCpf) {
 
       const employee = { name, cpf, position, date, uf, salary, status };
 
-      return employee;
+      return [employee, i];
     }
   }
 }
@@ -207,9 +215,9 @@ function searchEmployeesBySalary(employeeSalary) {
 
   const employees = [];
 
-  const salarySplit = employeeSalary.split('-');
-  const minSalary = salarySplit[0].split(' ')[0];
-  const maxSalary = salarySplit[1].split(' ')[1];
+  const salarySplit = employeeSalary.split("-");
+  const minSalary = salarySplit[0].split(" ")[0];
+  const maxSalary = salarySplit[1].split(" ")[1];
 
   const lines = data.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
@@ -219,7 +227,7 @@ function searchEmployeesBySalary(employeeSalary) {
     const salary = line[5];
 
     // checking if the current employee is the searched one
-    if ((salary >= minSalary) && (salary <= maxSalary)) {
+    if (salary >= minSalary && salary <= maxSalary) {
       // getting the other fields
       const date = line[0];
       const position = line[1];
@@ -271,14 +279,67 @@ function searchEmployeesByStatus(employeeStatus) {
   return employees;
 }
 
+// removes the line from the data
+function removeLine(data, line) {}
+
 // add employee to the end of the file funcionarios.txt
 function addEmployee(employee) {
-  data = "\n";
+  // search the employee. If it exists, delete its line and add a new one after
+  const employeeInfo = searchEmployeesByCpf(employee.cpf);
+  if (employeeInfo !== undefined) {
+    const employeeLine = employeeInfo[1];
 
-  data += employee.date + ";" + employee.position + ";" + employee.cpf + ";" 
-  + employee.name + ";" + employee.uf + ";" + employee.salary + ";" + employee.status + "\n";
+    const fileData = fs
+      .readFileSync(
+        path.resolve(__dirname, "./fake-db/funcionarios.txt"),
+        "utf-8"
+      )
+      .split(/\r?\n/);
 
-  fs.writeFileSync(path.resolve(__dirname, "./fake-db/funcionarios.txt"), data, {flag:'a+'});
+    // removes the line and the one above it (because its a blank line)
+    const firstPart = fileData.slice(0, employeeLine - 1);
+    const secondPart = fileData.slice(employeeLine + 1, fileData.length);
+    const newData = firstPart.concat(secondPart);
+
+    // deletes the content of the file
+    fs.writeFileSync(path.resolve(__dirname, "./fake-db/funcionarios.txt"), "");
+
+    // writes the new content
+    newData.forEach((line, index) => {
+      if(index !== (newData.length-1)) line += "\r\n";
+
+      fs.writeFileSync(
+        path.resolve(__dirname, "./fake-db/funcionarios.txt"),
+        line,
+        { flag: "a+" }
+      );
+    });
+  }
+
+  let data = "\n";
+
+  data +=
+    employee.date +
+    ";" +
+    employee.position +
+    ";" +
+    employee.cpf +
+    ";" +
+    employee.name +
+    ";" +
+    employee.uf +
+    ";" +
+    employee.salary +
+    ";" +
+    employee.status +
+    "\n";
+
+  // writes the data about the employee
+  fs.writeFileSync(
+    path.resolve(__dirname, "./fake-db/funcionarios.txt"),
+    data,
+    { flag: "a+" }
+  );
 
   return;
 }
