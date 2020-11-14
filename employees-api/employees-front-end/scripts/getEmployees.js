@@ -1,14 +1,76 @@
-const searchForm = document.getElementById("search-form");
-const searchFor = document.getElementById("search-for");
-const employeeData = document.getElementById("employee-data");
+//const searchForm = document.getElementById("search-form");
+//const searchFor = document.getElementById("search-for");
+//const employeeData = document.getElementById("employee-data");
 
+const nameForm = document.getElementById("name-form");
+const cpfForm = document.getElementById("cpf-form");
+const positionForm = document.getElementById("position-form");
+const dateForm = document.getElementById("date-form");
+const ufForm = document.getElementById("uf-form");
+const salaryForm = document.getElementById("salary-form");
+const statusForm = document.getElementById("status-form");
+
+/*
 // when submitting the search form, calls the get function
 searchForm.addEventListener("submit", function (event) {
   getEmployee(searchFor.value, employeeData.value);
 
   event.preventDefault();
 });
+*/
 
+nameForm.addEventListener("submit", function (event) {
+  const inputName = document.getElementById("name");
+  getEmployee("name", inputName.value);
+
+  event.preventDefault();
+});
+
+cpfForm.addEventListener("submit", function (event) {
+  const inputCpf = document.getElementById("cpf");
+  getEmployee("cpf", inputCpf.value);
+
+  event.preventDefault();
+});
+
+positionForm.addEventListener("submit", function (event) {
+  const inputPosition = document.getElementById("position");
+  getEmployee("position", inputPosition.value);
+
+  event.preventDefault();
+});
+
+dateForm.addEventListener("submit", function (event) {
+  const inputDate = document.getElementById("date");
+  getEmployee("date", inputDate.value);
+
+  event.preventDefault();
+});
+
+ufForm.addEventListener("submit", function (event) {
+  const inputUf = document.getElementById("uf");
+  getEmployee("uf", inputUf.value);
+
+  event.preventDefault();
+});
+
+salaryForm.addEventListener("submit", function (event) {
+  const inputMinSalary = document.getElementById("min-salary");
+  const inputMaxSalary = document.getElementById("max-salary");
+
+  getEmployee("salary", [inputMinSalary.value, inputMaxSalary.value]);
+
+  event.preventDefault();
+});
+
+statusForm.addEventListener("submit", function (event) {
+  const inputStatus = document.getElementById("status");
+  getEmployee("status", inputStatus.value);
+
+  event.preventDefault();
+});
+
+/*
 employeeData.addEventListener("keypress", function (event) {
   /**
 nonInput: elements we consider nonInput
@@ -16,7 +78,7 @@ dataMask: we mask data-mask elements by default
 watchInputs: watch for dynamically added inputs by default
 watchDataMask: by default we disabled the watcher for dynamically
 added data-mask elements by default (performance reasons)
-**/
+*
 
   $.jMaskGlobals = {
     maskElements: "input,td,span,div",
@@ -70,7 +132,7 @@ added data-mask elements by default (performance reasons)
 
           if (isNaN(key) && !~controlKeys.indexOf(keyCode)) return false;
         });
-      */
+      
       break;
 
     case "date":
@@ -86,6 +148,7 @@ added data-mask elements by default (performance reasons)
       break;
   }
 });
+*/
 
 function getEmployee(searchForValue, employeeDataValue) {
   axios

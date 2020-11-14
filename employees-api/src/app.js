@@ -92,6 +92,9 @@ function searchEmployeesByName(employeeName) {
 // returns an array with the employee at the position 0 and its line number
 // at the position 1 (line number is used in the updating and deleting functions)
 function searchEmployeesByCpf(employeeCpf) {
+  // removes "." and "-" from employee.cpf
+  let cpfFormated = employeeCpf.replace(/[^0-9]/g, "");
+
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
     "utf-8"
@@ -105,7 +108,7 @@ function searchEmployeesByCpf(employeeCpf) {
     const cpf = line[2];
 
     // checking if the current employee is the searched one
-    if (cpf === employeeCpf) {
+    if (cpf === cpfFormated) {
       // getting the other fields
       const date = line[0];
       const position = line[1];
@@ -235,9 +238,9 @@ function searchEmployeesBySalary(employeeSalary) {
 
   const employees = [];
 
-  const salarySplit = employeeSalary.split("-");
-  const minSalary = salarySplit[0].split(" ")[0];
-  const maxSalary = salarySplit[1].split(" ")[1];
+  //const salarySplit = employeeSalary.split("-");
+  const minSalary = employeeSalary[0];
+  const maxSalary = employeeSalary[1];
 
   const lines = data.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
