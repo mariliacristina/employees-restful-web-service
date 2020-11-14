@@ -49,6 +49,8 @@ function searchEmployeesByName(employeeName) {
     "utf-8"
   );
 
+  const employees = [];
+
   const lines = data.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].split(";"); // separating the fields of an employee
@@ -68,9 +70,11 @@ function searchEmployeesByName(employeeName) {
 
       const employee = { name, cpf, position, date, uf, salary, status };
 
-      return employee;
+      employees.push(employee);
     }
   }
+
+  return employees;
 }
 
 // returns an array with the employee at the position 0 and its line number
