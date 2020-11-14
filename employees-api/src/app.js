@@ -323,8 +323,11 @@ function addEmployee(employee) {
   // returned message stating if it was an insert or update operation
   let msg = "Usuário inserido com sucesso!";
 
+  // removes "." and "-" from employee.cpf
+  let cpfFormated = employee.cpf.replace(/[^0-9]/g, "");
+
   // search the employee. If it exists, delete its line and add a new one after
-  const employeeInfo = searchEmployeesByCpf(employee.cpf);
+  const employeeInfo = searchEmployeesByCpf(cpfFormated);
 
   // update operation
   if (employeeInfo !== undefined) {
@@ -342,7 +345,7 @@ function addEmployee(employee) {
     ";" +
     employee.position +
     ";" +
-    employee.cpf +
+    cpfFormated +
     ";" +
     employee.name +
     ";" +
