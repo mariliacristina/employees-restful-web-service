@@ -182,15 +182,4 @@ const showEmployees = (employees) => {
       employeesTable.appendChild(tbody);
     });
   }
-  /*
-  const employeeItem = document.createElement("li");
-  employeeItem.innerHTML = `Nome: ${employees.salary}`;
-  employeesList.appendChild(employeeItem);
-
-  employees.map((employee) => {
-    const employeeItem = document.createElement("li");
-    employeeItem.innerHTML = `Nome: ${employee.name}`;
-    employeesList.appendChild(employeeItem);
-  });
-  */
 };

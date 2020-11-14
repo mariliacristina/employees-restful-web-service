@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(cors());
 
+// get function
 app.get("/api/employees", (req, res) => {
   const searchFor = req.query.searchFor;
   const employeeData = req.query.employeeData;
@@ -17,12 +18,14 @@ app.get("/api/employees", (req, res) => {
   res.send(employees);
 });
 
+// post function
 app.post("/api/employees/add", (req, res) => {
   const employee = req.body;
   const msg = addEmployee(employee);
   res.json({ status: msg });
 });
 
+// delete function
 app.delete("/api/employees/delete", (req, res) => {
   const cpf = req.body.cpf;
   const msg = deleteEmployee(cpf);
@@ -32,10 +35,11 @@ app.delete("/api/employees/delete", (req, res) => {
 // server listening  on port 3000
 app.listen(3000);
 
+// searchs the employees based on the searchFor option
 function searchEmployees(searchFor, employeeData) {
   if (searchFor === "name") return searchEmployeesByName(employeeData);
 
-  // serachEmployeeByCpf returns an array with the employee at the position 0 and its line number
+  // searchEmployeeByCpf returns an array with the employee at the position 0 and its line number
   // at the position 1 (line number is used in the updating function)
   if (searchFor === "cpf") {
     const employeeInfo = searchEmployeesByCpf(employeeData);
@@ -49,6 +53,7 @@ function searchEmployees(searchFor, employeeData) {
   if (searchFor === "status") return searchEmployeesByStatus(employeeData);
 }
 
+// search employees by name
 function searchEmployeesByName(employeeName) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -83,8 +88,9 @@ function searchEmployeesByName(employeeName) {
   return employees;
 }
 
+// search employees by cpf
 // returns an array with the employee at the position 0 and its line number
-// at the position 1 (line number is used in the updating function)
+// at the position 1 (line number is used in the updating and deleting functions)
 function searchEmployeesByCpf(employeeCpf) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -115,6 +121,7 @@ function searchEmployeesByCpf(employeeCpf) {
   }
 }
 
+// search employees by position
 function searchEmployeesByPosition(employeePosition) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -149,6 +156,7 @@ function searchEmployeesByPosition(employeePosition) {
   return employees;
 }
 
+// search employees by date
 function searchEmployeesByDate(employeeDate) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -183,6 +191,7 @@ function searchEmployeesByDate(employeeDate) {
   return employees;
 }
 
+// search employees by birthday uf
 function searchEmployeesByUf(employeeUf) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -217,6 +226,7 @@ function searchEmployeesByUf(employeeUf) {
   return employees;
 }
 
+// search employees by salary range
 function searchEmployeesBySalary(employeeSalary) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -255,6 +265,7 @@ function searchEmployeesBySalary(employeeSalary) {
   return employees;
 }
 
+// search employees by status
 function searchEmployeesByStatus(employeeStatus) {
   data = fs.readFileSync(
     path.resolve(__dirname, "./fake-db/funcionarios.txt"),
@@ -289,7 +300,7 @@ function searchEmployeesByStatus(employeeStatus) {
   return employees;
 }
 
-// removes the line from the funcionarios.txt
+// removes the line "employeeLine" from the funcionarios.txt
 function removeLine(employeeLine) {
   const fileData = fs
     .readFileSync(
@@ -318,10 +329,10 @@ function removeLine(employeeLine) {
   });
 }
 
-// adds employee to the end of the file funcionarios.txt
+// adds an employee to the end of the file funcionarios.txt
 function addEmployee(employee) {
   // returned message stating if it was an insert or update operation
-  let msg = "Usuário inserido com sucesso!";
+  let msg = "Funcionário inserido com sucesso!";
 
   // removes "." and "-" from employee.cpf
   let cpfFormated = employee.cpf.replace(/[^0-9]/g, "");
@@ -335,7 +346,7 @@ function addEmployee(employee) {
 
     removeLine(employeeLine);
 
-    msg = "Usuário atualizado com sucesso!";
+    msg = "Funcionário atualizado com sucesso!";
   }
 
   let data = "\n";
@@ -366,24 +377,28 @@ function addEmployee(employee) {
   return msg;
 }
 
-// deletes the employee with the employeeCpf
+// deletes the employee with the "employeeCpf"
 function deleteEmployee(employeeCpf) {
   // returned message
   let msg;
 
+  // removes "." and "-" from employee.cpf
+  let cpfFormated = employeeCpf.replace(/[^0-9]/g, "");
+
   // search the employee. If it exists, delete its line
-  const employeeInfo = searchEmployeesByCpf(employeeCpf);
+  const employeeInfo = searchEmployeesByCpf(cpfFormated);
   
   // delete operation
   if (employeeInfo !== undefined) {
+    const employeeName = employeeInfo[0].name;
     const employeeLine = employeeInfo[1];
 
     removeLine(employeeLine);
 
-    msg = "Usuário removido com sucesso!";
+    msg = "Funcionário " + employeeName + " removido com sucesso!";
     return msg;
   }
 
-  msg = "Usuário não existe!";
+  msg = "Funcionário não existe!";
   return msg;
 }
