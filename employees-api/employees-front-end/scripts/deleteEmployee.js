@@ -17,3 +17,10 @@ function deleteEmployee(cpf) {
     .then((response) => alert(response.data.status))
     .catch((error) => console.log(error));
 }
+
+// only allows numbers to be entered in the cpf, date and salary range fields
+$("#cpf").on("keypress", function (event) {
+  var key = event.key; // key value
+
+  if (isNaN(key)) return false;
+});

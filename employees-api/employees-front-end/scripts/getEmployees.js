@@ -1,7 +1,3 @@
-//const searchForm = document.getElementById("search-form");
-//const searchFor = document.getElementById("search-for");
-//const employeeData = document.getElementById("employee-data");
-
 const nameForm = document.getElementById("name-form");
 const cpfForm = document.getElementById("cpf-form");
 const positionForm = document.getElementById("position-form");
@@ -10,15 +6,7 @@ const ufForm = document.getElementById("uf-form");
 const salaryForm = document.getElementById("salary-form");
 const statusForm = document.getElementById("status-form");
 
-/*
-// when submitting the search form, calls the get function
-searchForm.addEventListener("submit", function (event) {
-  getEmployee(searchFor.value, employeeData.value);
-
-  event.preventDefault();
-});
-*/
-
+// when submiting the forms, calls the get function
 nameForm.addEventListener("submit", function (event) {
   const inputName = document.getElementById("name");
   getEmployee("name", inputName.value);
@@ -70,85 +58,32 @@ statusForm.addEventListener("submit", function (event) {
   event.preventDefault();
 });
 
-/*
-employeeData.addEventListener("keypress", function (event) {
-  /**
-nonInput: elements we consider nonInput
-dataMask: we mask data-mask elements by default
-watchInputs: watch for dynamically added inputs by default
-watchDataMask: by default we disabled the watcher for dynamically
-added data-mask elements by default (performance reasons)
-*
 
-  $.jMaskGlobals = {
-    maskElements: "input,td,span,div",
-    dataMaskAttr: "*[data-mask]",
-    dataMask: true,
-    watchInterval: 300,
-    watchInputs: true,
-    watchDataMask: false,
-    byPassKeys: [9, 16, 17, 18, 36, 37, 38, 39, 40, 91],
-    translation: {
-      0: { pattern: /\d/ },
-      9: { pattern: /\d/, optional: true },
-      "#": { pattern: /\d/, recursive: true },
-      A: { pattern: /[a-zA-Z0-9]/ },
-      S: { pattern: /[a-zA-Z]/ },
-    },
-  };
+// only allows numbers to be entered in the cpf, date and salary range fields
+$("#cpf").on("keypress", function (event) {
+  var key = event.key; // key value
 
-  var controlKeys = [
-    8, // backspace
-    16, // shift
-    17, // ctrl
-    35, // end
-    36, // home
-    37, // ←
-    39, // →
-    46, // delete
-    13, // enter
-    32, // space
-  ];
-
-  switch (searchFor.value) {
-    case "name":
-    case "position":
-      employeeData.placeholder = "Digite aqui...";
-
-      // name mask
-      //$("#employee-data").mask('Z',{translation: {'Z': {pattern: /[a-zA-Z ]/, recursive: true}}});
-      break;
-
-    case "cpf":
-      employeeData.placeholder = "Ex.: 000.000.000-00";
-
-      // cpf mask
-      /*
-      $("#employee-data")
-        .mask("999.999.999-99")
-        .on("keydown", function (event) {
-          var key = event.key; // key value
-          var keyCode = event.keyCode || event.which; // key code
-
-          if (isNaN(key) && !~controlKeys.indexOf(keyCode)) return false;
-        });
-      
-      break;
-
-    case "date":
-      employeeData.placeholder = "dd/mm/yyyy";
-      break;
-
-    case "salary":
-      employeeData.placeholder = "min - max";
-      break;
-
-    case "status":
-      employeeData.placeholder = "ATIVO, INATIVO ou BLOQUEADO";
-      break;
-  }
+  if (isNaN(key)) return false;
 });
-*/
+
+$("#date").on("keypress", function (event) {
+  var key = event.key; // key value
+
+  if (isNaN(key)) return false;
+});
+
+$("#min-salary").on("keypress", function (event) {
+  var key = event.key; // key value
+
+  if (isNaN(key)) return false;
+});
+
+$("#max-salary").on("keypress", function (event) {
+  var key = event.key; // key value
+
+  if (isNaN(key)) return false;
+});
+
 
 function getEmployee(searchForValue, employeeDataValue) {
   axios

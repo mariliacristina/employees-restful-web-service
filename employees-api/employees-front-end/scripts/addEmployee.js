@@ -23,3 +23,22 @@ function postEmployee(employee) {
     .then((response) => alert(response.data.status))
     .catch((error) => console.log(error));
 }
+
+// only allows numbers to be entered in the cpf, date and salary fields
+$("#cpf").on("keypress", function (event) {
+  var key = event.key; // key value
+
+  if (isNaN(key)) return false;
+});
+
+$("#date").on("keypress", function (event) {
+  var key = event.key; // key value
+
+  if (isNaN(key)) return false;
+});
+
+$("#salary").on("keypress", function (event) {
+  var key = event.key; // key value
+
+  if (isNaN(key)) return false;
+});
