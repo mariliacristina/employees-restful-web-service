@@ -18,7 +18,7 @@ function deleteEmployee(cpf) {
     .catch((error) => console.log(error));
 }
 
-// only allows numbers to be entered in the cpf, date and salary range fields
+// only allows numbers to be entered in the cpf field
 $("#cpf").on("keypress", function (event) {
   var key = event.key; // key value
 

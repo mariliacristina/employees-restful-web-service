@@ -5,35 +5,91 @@ const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("../swagger_output.json");
 
 app.use(bodyParser.json());
 app.use(cors());
 
+// server listening  on port 3000
+app.listen(3000);
+
+// swagger graphical interface
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // get function
 app.get("/api/employees", (req, res) => {
+  /*
+    #swagger.tags = ['Employees']
+    #swagger.description = 'Endpoint to get an employee.'
+  */
+
+  /* #swagger.parameters['searchFor'] = {
+               description: 'Search type used. Ex: name, cpf, job position...',
+               type: 'string'
+        } 
+      #swagger.parameters['employeeData'] = {
+               description: 'Employee data.',
+               type: 'string or array'
+        }
+  */
+
   const searchFor = req.query.searchFor;
   const employeeData = req.query.employeeData;
 
   employees = searchEmployees(searchFor, employeeData);
-  res.send(employees);
+
+  /* #swagger.responses[200] = { 
+               schema: { $ref: "#/definitions/Employee" },
+               description: 'Employee found!' 
+        } 
+  */
+  res.status(200).send(employees);
 });
 
 // post function
-app.post("/api/employees/add", (req, res) => {
+app.post("/api/employees/post", (req, res) => {
+  /* #swagger.tags = ['Employees']
+     #swagger.description = 'Endpoint to add an employee or update if it already exists.' 
+  */
+
+  /* #swagger.parameters['employee'] = {
+               in: 'body',
+               description: 'Employee informations.',
+               required: true,
+               type: 'object',
+               schema: { $ref: "#/definitions/AddEmployee" }
+        } 
+  */
+
   const employee = req.body;
   const msg = addEmployee(employee);
-  res.json({ status: msg });
+
+  // #swagger.responses[201] = { description: 'Employee added successfully!' }
+  res.status(201).json({ status: msg });
 });
 
 // delete function
 app.delete("/api/employees/delete", (req, res) => {
+  /* #swagger.tags = ['Employees']
+     #swagger.description = 'Endpoint to delete an employee.' 
+  */
+
+  /* #swagger.parameters['cpf'] = {
+               in: 'body.cpf',
+               description: 'Employee cpf.',
+               required: true,
+               type: 'string',
+               schema: { $ref: "#/definitions/DeleteEmployee" }
+        } 
+  */
+
   const cpf = req.body.cpf;
   const msg = deleteEmployee(cpf);
-  res.json({ status: msg });
-});
 
-// server listening  on port 3000
-app.listen(3000);
+  // #swagger.responses[200] = { description: 'Employee successfully removed!' }
+  res.status(200).json({ status: msg });
+});
 
 // searchs the employees based on the searchFor option
 function searchEmployees(searchFor, employeeData) {
@@ -390,7 +446,7 @@ function deleteEmployee(employeeCpf) {
 
   // search the employee. If it exists, delete its line
   const employeeInfo = searchEmployeesByCpf(cpfFormated);
-  
+
   // delete operation
   if (employeeInfo !== undefined) {
     const employeeName = employeeInfo[0].name;
