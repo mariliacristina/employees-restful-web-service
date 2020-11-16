@@ -58,7 +58,6 @@ statusForm.addEventListener("submit", function (event) {
   event.preventDefault();
 });
 
-
 // only allows numbers to be entered in the cpf, date and salary range fields
 $("#cpf").on("keypress", function (event) {
   var key = event.key; // key value
@@ -84,7 +83,6 @@ $("#max-salary").on("keypress", function (event) {
   if (isNaN(key)) return false;
 });
 
-
 function getEmployee(searchForValue, employeeDataValue) {
   axios
     .get("http://localhost:3000/api/employees", {
@@ -99,11 +97,21 @@ function getEmployee(searchForValue, employeeDataValue) {
 
 // shows the employees returned by the server
 // employees can be of two types: an object or an array of objects
-const showEmployees = (employees) => {
+const showEmployees = (data) => {
+  employees = data["employees"];
+  msg = data["msg"];
+
   // getting the employees table and cleaning it
   const employeesTable = document.getElementById("employees-table");
   employeesTable.textContent = "";
 
+  // handling the case that no employee is returned
+  if (msg === "Nenhum funcionário encontrado!") {
+    alert(msg);
+    return;
+  }
+
+  /*
   // handling the case that no employee is returned
   if (Array.isArray(employees)) {
     if (employees.length == 0) {
@@ -115,7 +123,7 @@ const showEmployees = (employees) => {
       alert("Nenhum funcionário encontrado!");
       return;
     }
-  }
+  }*/
 
   // creating the head of the table
   const thead = document.createElement("thead");

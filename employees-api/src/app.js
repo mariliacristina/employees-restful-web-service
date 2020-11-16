@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // server listening  on port 3000
-app.listen(3000);
+if (process.env.NODE_ENV !== "test") {
+  app.listen(3000);
+}
 
 // swagger graphical interface
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
@@ -37,14 +39,14 @@ app.get("/api/employees", (req, res) => {
   const searchFor = req.query.searchFor;
   const employeeData = req.query.employeeData;
 
-  employees = searchEmployees(searchFor, employeeData);
+  data = searchEmployees(searchFor, employeeData);
 
   /* #swagger.responses[200] = { 
                schema: { $ref: "#/definitions/Employee" },
                description: 'Employee found!' 
         } 
   */
-  res.status(200).send(employees);
+  res.status(200).send(data);
 });
 
 // post function
@@ -94,14 +96,7 @@ app.delete("/api/employees/delete", (req, res) => {
 // searchs the employees based on the searchFor option
 function searchEmployees(searchFor, employeeData) {
   if (searchFor === "name") return searchEmployeesByName(employeeData);
-
-  // searchEmployeeByCpf returns an array with the employee at the position 0 and its line number
-  // at the position 1 (line number is used in the updating function)
-  if (searchFor === "cpf") {
-    const employeeInfo = searchEmployeesByCpf(employeeData);
-    if (employeeInfo !== undefined) return employeeInfo[0];
-  }
-
+  if (searchFor === "cpf") return searchEmployeesByCpf(employeeData);
   if (searchFor === "position") return searchEmployeesByPosition(employeeData);
   if (searchFor === "date") return searchEmployeesByDate(employeeData);
   if (searchFor === "uf") return searchEmployeesByUf(employeeData);
@@ -141,12 +136,19 @@ function searchEmployeesByName(employeeName) {
     }
   }
 
-  return employees;
+  let msg;
+  if (employees.length == 0) {
+    msg = "Nenhum funcionário encontrado!";
+  } else {
+    msg = "Busca realizada com sucesso!";
+  }
+
+  return { employees, msg };
 }
 
 // search employees by cpf
-// returns an array with the employee at the position 0 and its line number
-// at the position 1 (line number is used in the updating and deleting functions)
+// returns also the employee line number in funcionarios.txt
+// (line number is used in the updating and deleting functions)
 function searchEmployeesByCpf(employeeCpf) {
   // removes "." and "-" from employee.cpf
   let cpfFormated = employeeCpf.replace(/[^0-9]/g, "");
@@ -175,9 +177,12 @@ function searchEmployeesByCpf(employeeCpf) {
 
       const employee = { name, cpf, position, date, uf, salary, status };
 
-      return [employee, i];
+      let msg = "Busca realizada com sucesso!";
+      return { employees: employee, i, msg };
     }
   }
+
+  return {employees: undefined, i: -1, msg: "Nenhum funcionário encontrado!"};
 }
 
 // search employees by position
@@ -212,7 +217,14 @@ function searchEmployeesByPosition(employeePosition) {
     }
   }
 
-  return employees;
+  let msg;
+  if (employees.length == 0) {
+    msg = "Nenhum funcionário encontrado!";
+  } else {
+    msg = "Busca realizada com sucesso!";
+  }
+
+  return { employees, msg };
 }
 
 // search employees by date
@@ -247,7 +259,14 @@ function searchEmployeesByDate(employeeDate) {
     }
   }
 
-  return employees;
+  let msg;
+  if (employees.length == 0) {
+    msg = "Nenhum funcionário encontrado!";
+  } else {
+    msg = "Busca realizada com sucesso!";
+  }
+
+  return { employees, msg };
 }
 
 // search employees by birthday uf
@@ -282,7 +301,14 @@ function searchEmployeesByUf(employeeUf) {
     }
   }
 
-  return employees;
+  let msg;
+  if (employees.length == 0) {
+    msg = "Nenhum funcionário encontrado!";
+  } else {
+    msg = "Busca realizada com sucesso!";
+  }
+
+  return { employees, msg };
 }
 
 // search employees by salary range
@@ -294,7 +320,6 @@ function searchEmployeesBySalary(employeeSalary) {
 
   const employees = [];
 
-  //const salarySplit = employeeSalary.split("-");
   const minSalary = employeeSalary[0];
   const maxSalary = employeeSalary[1];
 
@@ -321,7 +346,14 @@ function searchEmployeesBySalary(employeeSalary) {
     }
   }
 
-  return employees;
+  let msg;
+  if (employees.length == 0) {
+    msg = "Nenhum funcionário encontrado!";
+  } else {
+    msg = "Busca realizada com sucesso!";
+  }
+
+  return { employees, msg };
 }
 
 // search employees by status
@@ -356,7 +388,14 @@ function searchEmployeesByStatus(employeeStatus) {
     }
   }
 
-  return employees;
+  let msg;
+  if (employees.length == 0) {
+    msg = "Nenhum funcionário encontrado!";
+  } else {
+    msg = "Busca realizada com sucesso!";
+  }
+
+  return { employees, msg };
 }
 
 // removes the line "employeeLine" from the funcionarios.txt
@@ -400,8 +439,8 @@ function addEmployee(employee) {
   const employeeInfo = searchEmployeesByCpf(cpfFormated);
 
   // update operation
-  if (employeeInfo !== undefined) {
-    const employeeLine = employeeInfo[1];
+  if (employeeInfo['employees'] !== undefined) {
+    const employeeLine = employeeInfo['i'];
 
     removeLine(employeeLine);
 
@@ -448,9 +487,9 @@ function deleteEmployee(employeeCpf) {
   const employeeInfo = searchEmployeesByCpf(cpfFormated);
 
   // delete operation
-  if (employeeInfo !== undefined) {
-    const employeeName = employeeInfo[0].name;
-    const employeeLine = employeeInfo[1];
+  if (employeeInfo['employees'] !== undefined) {
+    const employeeName = employeeInfo['employees'].name;
+    const employeeLine = employeeInfo['i'];
 
     removeLine(employeeLine);
 
@@ -461,3 +500,16 @@ function deleteEmployee(employeeCpf) {
   msg = "Funcionário não existe!";
   return msg;
 }
+
+// exporting functions to be tested
+module.exports = {
+  searchEmployeesByName,
+  searchEmployeesByCpf,
+  searchEmployeesByPosition,
+  searchEmployeesByDate,
+  searchEmployeesByUf,
+  searchEmployeesBySalary,
+  searchEmployeesByStatus,
+  addEmployee,
+  deleteEmployee,
+};
