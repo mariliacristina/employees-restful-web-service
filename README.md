@@ -81,7 +81,7 @@ In the delete operation, a cpf is received. The server calls the function that s
 
 #### Unit Tests
 
-The Unit Tests are in "src/tests". The files "searchBy[field].test.js" tests the search functions for the specified field ("field").
+The Unit Tests are in "src/tests". The files "search-by-[field].test.js" tests the search functions for the specified field ("field").
 In these files, an object is created with the data of an existing employee. Then, the search function is performed with its corresponding data and it is verified if the returned employees are the expected one. In addition, the case where there are no employees with the passed data is also verified. The search function is performed with a data that does not correspond to any employee and then it is checked whether "undefined" is returned. In both cases, it is verified if the returned message is the expected one.
 
 The file "add.test.js" tests the function of adding an employee.  An employee object is created and then the add function is perfomed with it. Then, a search is made for this employee's CPF to verify that he was actually added. Also, it is verified if the returned messages are the expected one. This employee is deleted in the end.
