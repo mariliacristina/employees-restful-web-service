@@ -320,8 +320,8 @@ function searchEmployeesBySalary(employeeSalary) {
 
   const employees = [];
 
-  const minSalary = employeeSalary[0];
-  const maxSalary = employeeSalary[1];
+  const minSalary = parseFloat(employeeSalary[0]);
+  const maxSalary = parseFloat(employeeSalary[1]);
 
   const lines = data.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
