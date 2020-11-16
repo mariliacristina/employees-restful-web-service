@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "swagger-autogen": "node src/swagger.js",
+    "swagger-autogen": "NODE_ENV=swagger node src/swagger.js",
     "test": "NODE_ENV=test jest --runInBand"
   },
   "keywords": [],

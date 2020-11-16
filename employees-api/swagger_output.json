@@ -90,7 +90,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Employee added successfully!"
+            "description": "Employee added or updated successfully!"
           }
         }
       }
