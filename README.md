@@ -60,6 +60,7 @@ The index.html page searches for employees. Searches can be performed by: name, 
 salary range or status.
 The add-employee.html page inserts a new employee or updates an existing one.
 The delete-employee.html page deletes an employee by cpf.
+
 Each page has its javascript, where there are listerners for the search, insertion/update and delete forms.
 When these forms are submitted, the data is passed to the server using the corresponding HTTP methods (get, post and delete). In the case of a search operation, the passed data is the search type chosen (Ex: name, cpf...) and the corresponding employee data.
 In the case of a insertion/update operation, the passed data is the employee to be added or updated.
@@ -70,9 +71,12 @@ When the server responds, the response data is displayed to the user. In the cas
 #### RESTful Web Services with JSON formatting
 
 The server is responsible for receiving the data through the HTTP methods (get, post and delete). Then, it performs the search, insertion/update and delete operations in the "funcionarios.txt" file. 
+
 In the get operation, the server receives the search type chosen by the user and the corresponding employee data. Then, he goes through the file looking for employees who match the passed data. In the case of a successful search, a array containing the employees are returned. Otherwise, a array empty is returned. In both cases, a message is returned stating whether the search was successful or not. 
+
 In the post operation, an employee is received. The server calls the function that searches for an employee by cpf in order to check if the employee already exists. If it exists, this function returns the employee object and its employee line number. If it is a new employee, a line with his information is appended to the end of the file.
 If it already exists, its corresponding line in the file is deleted and then its new line is append to the end of the file. Also, a message is returned stating whether an insert or update operation has been performed.
+
 In the delete operation, a cpf is received. The server calls the function that searches for an employee by cpf in order to check if this employee exists. If it exists, this function returns the employee object and its employee line number in "funcionarios.txt". Then, its line is deleted from the file. In both cases, a message is returned stating wheter the employee was deleted or if it does not exist.
 
 
