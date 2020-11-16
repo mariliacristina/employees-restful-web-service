@@ -91,7 +91,16 @@ function getEmployee(searchForValue, employeeDataValue) {
         employeeData: employeeDataValue,
       },
     })
-    .then((response) => showEmployees(response.data))
+    .then((response) => {
+      showEmployees(response.data);
+      nameForm.reset();
+      cpfForm.reset();
+      positionForm.reset();
+      dateForm.reset();
+      ufForm.reset();
+      salaryForm.reset();
+      statusForm.reset();
+    })
     .catch((error) => console.log(error));
 }
 

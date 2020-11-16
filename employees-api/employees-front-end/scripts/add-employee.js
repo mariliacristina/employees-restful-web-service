@@ -20,7 +20,10 @@ addForm.addEventListener("submit", function (event) {
 function postEmployee(employee) {
   axios
     .post("http://localhost:3000/api/employees/post", employee)
-    .then((response) => alert(response.data.status))
+    .then((response) => {
+      alert(response.data.status);
+      addForm.reset();
+    })
     .catch((error) => console.log(error));
 }
 

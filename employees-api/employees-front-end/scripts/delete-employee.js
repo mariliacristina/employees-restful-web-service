@@ -14,7 +14,10 @@ function deleteEmployee(cpf) {
     .delete("http://localhost:3000/api/employees/delete", {
       data: { cpf },
     })
-    .then((response) => alert(response.data.status))
+    .then((response) => {
+      alert(response.data.status);
+      deleteForm.reset();
+    })
     .catch((error) => console.log(error));
 }
 
