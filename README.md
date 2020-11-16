@@ -55,11 +55,11 @@ This project uses HTML, CSS, JavaScript and Node.js.
 
 #### Front-end
 
-There are 3 HTML pages: index.html, add-employee.html and delete-employee.html.
-The index.html page searches for employees. Searches can be performed by: name, cpf, job position, registration date, birthday uf,
+There are 3 HTML pages: "index.html", "add-employee.html" and "delete-employee.html".
+The "index.html" page searches for employees. Searches can be performed by: name, cpf, job position, registration date, birthday uf,
 salary range or status.
-The add-employee.html page inserts a new employee or updates an existing one.
-The delete-employee.html page deletes an employee by cpf.
+The "add-employee.html" page inserts a new employee or updates an existing one.
+The "delete-employee.html" page deletes an employee by cpf.
 
 Each page has its javascript, where there are listerners for the search, insertion/update and delete forms.
 When these forms are submitted, the data is passed to the server using the corresponding HTTP methods (get, post and delete). In the case of a search operation, the passed data is the search type chosen (Ex: name, cpf...) and the corresponding employee data.
@@ -81,6 +81,12 @@ In the delete operation, a cpf is received. The server calls the function that s
 
 #### Unit Tests
 
+The Unit Tests are in "src/tests". The files "searchBy[field].test.js" tests the search functions for the specified field ("field").
+In these files, an object is created with the data of an existing employee. Then, the search function is performed with its corresponding data and it is verified if the returned employees are the expected one. In addition, the case where there are no employees with the passed data is also verified. The search function is performed with a data that does not correspond to any employee and then it is checked whether "undefined" is returned. In both cases, it is verified if the returned message is the expected one.
 
+The file "add.test.js" tests the function of adding an employee.  An employee object is created and then the add function is perfomed with it. Then, a search is made for this employee's CPF to verify that he was actually added. Also, it is verified if the returned messages are the expected one. This employee is deleted in the end.
 
+The file "update.test.js" tests the function of updating an employee. An employee object is created and then the add function is perfomed with it. Then, a field of this employee is changed	("status", in this test) and the add function is perfomed again with the updated employee. After, a search is made for this employee's CPF to verify that he was actually updated. Also, it is verified if the returned messages are the expected one. This employee is deleted in the end. 
+
+The file "delete.test.js" tests the function of deleting an employee. An employee object is created and then the add function is perfomed with it. Then, the delete function is made with this employee's CPF. The search function by this CPF is performed to verify that this employee was actually deleted. Also, it is verified if the returned messages are the expected one. This file also tests if the employee to be deleted does not exists and if the returned message states this.
 
