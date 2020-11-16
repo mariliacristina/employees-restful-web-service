@@ -1,0 +1,47 @@
+#name-form,
+#cpf-form,
+#position-form,
+#date-form,
+#uf-form,
+#salary-form,
+#status-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+#name-form label,
+#cpf-form label,
+#position-form label,
+#date-form label,
+#uf-form label,
+#salary-form label,
+#status-form label {
+  width: 20%;
+}
+
+#field {
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+#field input,
+#field select {
+  width: 100%;
+}
+
+#salary-field {
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+#salary-field input {
+    width: 49.5%;
+}
+
+#submit {
+  width: 20%;
+}
+
+#submit input {
+  width: 100%;
+}

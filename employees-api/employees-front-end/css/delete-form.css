@@ -1,0 +1,21 @@
+#delete-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+#field {
+  margin-bottom: 10px;
+  width: 70%;
+}
+
+#field input {
+  width: 100%;
+}
+
+#submit {
+  width: 20%;
+}
+
+#submit input {
+  width: 100%;
+}

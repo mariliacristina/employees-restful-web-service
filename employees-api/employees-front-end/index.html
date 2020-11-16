@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./css/profile-picture.css" />
     <link rel="stylesheet" href="./css/menu.css" />
     <link rel="stylesheet" href="./css/left-column.css" />
+    <link rel="stylesheet" href="./css/search-form.css" />
     <style>
       html,
       body,
@@ -93,14 +94,18 @@
                   <label for="name" class="w3-text-grey"
                     ><b>Buscar por Nome:</b></label
                   >
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Digite aqui..."
-                    required
-                  />
-                  <input type="submit" value="Buscar" />
+                  <div id="field">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Digite aqui..."
+                      required
+                    />
+                  </div>
+                  <div id="submit">
+                    <input type="submit" value="Buscar" />
+                  </div>
                 </form>
 
                 <br />
@@ -109,15 +114,19 @@
                   <label for="cpf" class="w3-text-grey"
                     ><b>Buscar por CPF:</b></label
                   >
-                  <input
-                    type="text"
-                    id="cpf"
-                    name="cpf"
-                    placeholder="Ex: 999.999.999-99"
-                    data-mask="999.999.999-99"
-                    required
-                  />
-                  <input type="submit" value="Buscar" />
+                  <div id="field">
+                    <input
+                      type="text"
+                      id="cpf"
+                      name="cpf"
+                      placeholder="Ex: 999.999.999-99"
+                      data-mask="999.999.999-99"
+                      required
+                    />
+                  </div>
+                  <div id="submit">
+                    <input type="submit" value="Buscar" />
+                  </div>
                 </form>
 
                 <br />
@@ -126,14 +135,18 @@
                   <label for="position" class="w3-text-grey"
                     ><b>Buscar por Cargo:</b></label
                   >
-                  <input
-                    type="text"
-                    id="position"
-                    name="position"
-                    placeholder="Digite aqui..."
-                    required
-                  />
-                  <input type="submit" value="Buscar" />
+                  <div id="field">
+                    <input
+                      type="text"
+                      id="position"
+                      name="position"
+                      placeholder="Digite aqui..."
+                      required
+                    />
+                  </div>
+                  <div id="submit">
+                    <input type="submit" value="Buscar" />
+                  </div>
                 </form>
 
                 <br />
@@ -142,15 +155,19 @@
                   <label for="date" class="w3-text-grey"
                     ><b>Buscar por Data de Cadastro:</b></label
                   >
-                  <input
-                    type="text"
-                    id="date"
-                    name="date"
-                    placeholder="Ex: dd/mm/yyyy"
-                    data-mask="99/99/9999"
-                    required
-                  />
-                  <input type="submit" value="Buscar" />
+                  <div id="field">
+                    <input
+                      type="text"
+                      id="date"
+                      name="date"
+                      placeholder="Ex: dd/mm/yyyy"
+                      data-mask="99/99/9999"
+                      required
+                    />
+                  </div>
+                  <div id="submit">
+                    <input type="submit" value="Buscar" />
+                  </div>
                 </form>
 
                 <br />
@@ -159,14 +176,18 @@
                   <label for="uf" class="w3-text-grey"
                     ><b>Buscar por UF de Nascimento:</b></label
                   >
-                  <input
-                    type="text"
-                    id="uf"
-                    name="uf"
-                    placeholder="Digite aqui..."
-                    required
-                  />
-                  <input type="submit" value="Buscar" />
+                  <div id="field">
+                    <input
+                      type="text"
+                      id="uf"
+                      name="uf"
+                      placeholder="Digite aqui..."
+                      required
+                    />
+                  </div>
+                  <div id="submit">
+                    <input type="submit" value="Buscar" />
+                  </div>
                 </form>
 
                 <br />
@@ -175,21 +196,25 @@
                   <label for="min-salary" class="w3-text-grey"
                     ><b>Buscar por Faixa de Salário:</b></label
                   >
-                  <input
-                    type="number"
-                    id="min-salary"
-                    name="min-salary"
-                    placeholder="Mínimo"
-                    required
-                  />
-                  <input
-                    type="number"
-                    id="max-salary"
-                    name="max-salary"
-                    placeholder="Máximo"
-                    required
-                  />
-                  <input type="submit" value="Buscar" />
+                  <div id="salary-field">
+                    <input
+                      type="number"
+                      id="min-salary"
+                      name="min-salary"
+                      placeholder="Mínimo"
+                      required
+                    />
+                    <input
+                      type="number"
+                      id="max-salary"
+                      name="max-salary"
+                      placeholder="Máximo"
+                      required
+                    />
+                  </div>
+                  <div id="submit">
+                    <input type="submit" value="Buscar" />
+                  </div>
                 </form>
 
                 <br />
@@ -198,12 +223,16 @@
                   <label for="status" class="w3-text-grey"
                     ><b>Buscar por Status:</b></label
                   >
-                  <select name="status" id="status" required>
-                    <option value="ATIVO">Ativo</option>
-                    <option value="INATIVO">Inativo</option>
-                    <option value="BLOQUEADO">Bloqueado</option>
-                  </select>
-                  <input type="submit" value="Buscar" />
+                  <div id="field">
+                    <select name="status" id="status" required>
+                      <option value="ATIVO">Ativo</option>
+                      <option value="INATIVO">Inativo</option>
+                      <option value="BLOQUEADO">Bloqueado</option>
+                    </select>
+                  </div>
+                  <div id="submit">
+                    <input type="submit" value="Buscar" />
+                  </div>
                 </form>
 
                 <hr />
