@@ -12,7 +12,7 @@ const employee = {
 };
 
 // testing if
-test("the employee is successfully deleted and the message returned is the correct one", () => {
+test("the employee is successfully deleted and the returned message is the correct one", () => {
     // adds the employee
   let msg = app.addEmployee(employee);
 
@@ -34,7 +34,7 @@ test("the employee is successfully deleted and the message returned is the corre
 });
 
 // testing if
-test("the employee to be deleted does not exists and the message returned is the correct one", () => {
+test("the employee to be deleted does not exists and the returned message is the correct one", () => {
   // deletes the employee
   msg = app.deleteEmployee(employee.cpf);
 

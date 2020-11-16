@@ -4,163 +4,228 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employees</title>
-    <!--link rel="stylesheet" href="./css/main.css" />
-    <link rel="stylesheet" href="./css/animations.css" />
-    <link rel="stylesheet" href="./css/main-page.css">
-    <link rel="stylesheet" href="./css/sidebar.css"-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./css/profile-picture.css" />
+    <link rel="stylesheet" href="./css/menu.css" />
+    <link rel="stylesheet" href="./css/left-column.css" />
+    <style>
+      html,
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Roboto", sans-serif;
+      }
+    </style>
   </head>
-  <body>
-    <div id="main-page">
-      <aside class="animate-right sidebar">
-        <header>
-          <img src="#" alt="Employees" />
+  <body class="w3-light-grey">
+    <!-- Page Container -->
+    <div
+      id="page-container"
+      class="w3-content w3-margin-top"
+      style="max-width: 1400px"
+    >
+      <!-- The Grid -->
+      <div class="w3-row-padding">
+        <!-- Left Column -->
+        <div class="w3-third left-column">
+          <div class="w3-white w3-text-grey w3-card-4">
+            <div class="w3-display-container">
+              <img
+                id="profile-picture"
+                src="./images/employees.png"
+                alt="Employees Image"
+              />
+            </div>
 
-          <a href="index.html">Buscar Funcionários</a>
-          <a href="add-employee.html">Inserir/Atualizar Funcionário</a>
-          <a href="delete-employee.html">Excluir Funcionário</a>
-        </header>
-      </aside>
+            <div class="w3-container menu-item">
+              <p>
+                <i
+                  class="fa fa-search fa-fw w3-margin-right w3-large w3-text-teal"
+                ></i
+                ><a href="index.html">Buscar Funcionários</a>
+              </p>
+              <p>
+                <i
+                  class="fa fa-plus fa-fw w3-margin-right w3-large w3-text-teal"
+                ></i
+                ><a href="add-employee.html">Inserir/Atualizar Funcionário</a>
+              </p>
+              <p>
+                <i
+                  class="fa fa-times fa-fw w3-margin-right w3-large w3-text-teal"
+                ></i
+                ><a href="delete-employee.html">Excluir Funcionário</a>
+              </p>
+            </div>
+          </div>
+          <br />
 
-      <main class="main with-sidebar">
-        <div id="search-employees">
-          <h1>Buscar Funcionário</h1>
+          <!-- End Left Column -->
+        </div>
 
-          <!--form id="search-form">
-            <label for="search-for">Buscar por:</label>
-            <select name="search-for" id="search-for">
-              <option value="name">Nome</option>
-              <option value="cpf">CPF</option>
-              <option value="position">Cargo</option>
-              <option value="date">Data de Cadastro</option>
-              <option value="uf">UF de Nascimento</option>
-              <option value="salary">Faixa Salarial</option>
-              <option value="status">Status</option>
-            </select>
+        <!-- Right Column -->
+        <div class="w3-twothird right-column">
+          <div
+            class="w3-container w3-card w3-white w3-margin-bottom section"
+            id="about-me"
+          >
+            <h2 class="w3-text-grey w3-padding-16">
+              <i
+                class="fa fa-search fa-fw w3-margin-right w3-xxlarge w3-text-teal"
+              ></i
+              >Buscar Funcionários
+            </h2>
+            <div class="w3-container">
+              <div id="search-employees">
+                <form id="name-form">
+                  <label for="name" class="w3-text-grey"
+                    ><b>Buscar por Nome:</b></label
+                  >
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Digite aqui..."
+                    required
+                  />
+                  <input type="submit" value="Buscar" />
+                </form>
 
-            <input
-              type="text"
-              id="employee-data"
-              name="employee-data"
-              placeholder="Digite aqui..."
-            />
-            <input type="submit" value="Buscar" />
-          </form-->
+                <br />
 
-          <form id="name-form">
-            <label for="name">Buscar por Nome:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Digite aqui..."
-              required
-            />
-            <input type="submit" value="Buscar" />
-          </form>
+                <form id="cpf-form">
+                  <label for="cpf" class="w3-text-grey"
+                    ><b>Buscar por CPF:</b></label
+                  >
+                  <input
+                    type="text"
+                    id="cpf"
+                    name="cpf"
+                    placeholder="Ex: 999.999.999-99"
+                    data-mask="999.999.999-99"
+                    required
+                  />
+                  <input type="submit" value="Buscar" />
+                </form>
 
-            <br />
+                <br />
 
-          <form id="cpf-form">
-            <label for="cpf">Buscar por CPF:</label>
-            <input
-              type="text"
-              id="cpf"
-              name="cpf"
-              placeholder="Ex: 999.999.999-99"
-              data-mask="999.999.999-99"
-              required
-            />
-            <input type="submit" value="Buscar" />
-          </form>
+                <form id="position-form">
+                  <label for="position" class="w3-text-grey"
+                    ><b>Buscar por Cargo:</b></label
+                  >
+                  <input
+                    type="text"
+                    id="position"
+                    name="position"
+                    placeholder="Digite aqui..."
+                    required
+                  />
+                  <input type="submit" value="Buscar" />
+                </form>
 
-            <br />
+                <br />
 
-          <form id="position-form">
-            <label for="position">Buscar por Cargo:</label>
-            <input
-              type="text"
-              id="position"
-              name="position"
-              placeholder="Digite aqui..."
-              required
-            />
-            <input type="submit" value="Buscar" />
-          </form>
+                <form id="date-form">
+                  <label for="date" class="w3-text-grey"
+                    ><b>Buscar por Data de Cadastro:</b></label
+                  >
+                  <input
+                    type="text"
+                    id="date"
+                    name="date"
+                    placeholder="Ex: dd/mm/yyyy"
+                    data-mask="99/99/9999"
+                    required
+                  />
+                  <input type="submit" value="Buscar" />
+                </form>
 
-            <br />
+                <br />
 
-          <form id="date-form">
-            <label for="date">Buscar por Data de Cadastro:</label>
-            <input
-              type="text"
-              id="date"
-              name="date"
-              placeholder="Ex: dd/mm/yyyy"
-              data-mask="99/99/9999"
-              required
-            />
-            <input type="submit" value="Buscar" />
-          </form>
+                <form id="uf-form">
+                  <label for="uf" class="w3-text-grey"
+                    ><b>Buscar por UF de Nascimento:</b></label
+                  >
+                  <input
+                    type="text"
+                    id="uf"
+                    name="uf"
+                    placeholder="Digite aqui..."
+                    required
+                  />
+                  <input type="submit" value="Buscar" />
+                </form>
 
-            <br />
+                <br />
 
-          <form id="uf-form">
-            <label for="uf">Buscar por UF de Nascimento:</label>
-            <input
-              type="text"
-              id="uf"
-              name="uf"
-              placeholder="Digite aqui..."
-              required
-            />
-            <input type="submit" value="Buscar" />
-          </form>
+                <form id="salary-form">
+                  <label for="min-salary" class="w3-text-grey"
+                    ><b>Buscar por Faixa de Salário:</b></label
+                  >
+                  <input
+                    type="number"
+                    id="min-salary"
+                    name="min-salary"
+                    placeholder="Mínimo"
+                    required
+                  />
+                  <input
+                    type="number"
+                    id="max-salary"
+                    name="max-salary"
+                    placeholder="Máximo"
+                    required
+                  />
+                  <input type="submit" value="Buscar" />
+                </form>
 
-            <br />
+                <br />
 
-          <form id="salary-form">
-            <label for="min-salary">Buscar por Faixa de Salário:</label>
-            <input
-              type="number"
-              id="min-salary"
-              name="min-salary"
-              placeholder="Mínimo"
-              required
-            />
-            <input
-              type="number"
-              id="max-salary"
-              name="max-salary"
-              placeholder="Máximo"
-              required
-            />
-            <input type="submit" value="Buscar" />
-          </form>
+                <form id="status-form">
+                  <label for="status" class="w3-text-grey"
+                    ><b>Buscar por Status:</b></label
+                  >
+                  <select name="status" id="status" required>
+                    <option value="ATIVO">Ativo</option>
+                    <option value="INATIVO">Inativo</option>
+                    <option value="BLOQUEADO">Bloqueado</option>
+                  </select>
+                  <input type="submit" value="Buscar" />
+                </form>
 
-            <br />
+                <hr />
 
-          <form id="status-form">
-            <label for="status">Buscar por Status:</label>
-            <select name="status" id="status" required>
-              <option value="ATIVO">Ativo</option>
-              <option value="INATIVO">Inativo</option>
-              <option value="BLOQUEADO">Bloqueado</option>
-            </select>
-            <input type="submit" value="Buscar" />
-          </form>
-
-          <hr>
-
-          <div id="employees">
-            <table id="employees-table"></table>
+                <div id="employees">
+                  <table id="employees-table"></table>
+                </div>
+              </div>
+              <br />
+            </div>
           </div>
         </div>
-      </main>
+      </div>
+
+      <!--footer class="w3-container w3-teal w3-center w3-margin-top section">
+        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+      </footer-->
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
-    <script src="./scripts/getEmployees.js"></script>
+    <script src="./scripts/get-employees.js"></script>
   </body>
 </html>

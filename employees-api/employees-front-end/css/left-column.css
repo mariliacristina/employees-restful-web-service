@@ -1,0 +1,12 @@
+.left-column {
+  position: fixed;
+  height: 100%;
+}
+
+.right-column {
+    margin-left: 445px;
+}
+
+.page-container {
+  height: 100%;
+}

@@ -4,47 +4,119 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employees</title>
-    <!--link rel="stylesheet" href="./css/main.css" />
-    <link rel="stylesheet" href="./css/animations.css" />
-    <link rel="stylesheet" href="./css/main-page.css">
-    <link rel="stylesheet" href="./css/sidebar.css"-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="./css/profile-picture.css" />
+    <link rel="stylesheet" href="./css/menu.css" />
+    <link rel="stylesheet" href="./css/left-column.css" />
+    <style>
+      html,
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Roboto", sans-serif;
+      }
+    </style>
   </head>
-  <body>
-    <div id="main-page">
-      <aside class="animate-right sidebar">
-        <header>
-          <img src="#" alt="Employees" />
+  <body class="w3-light-grey">
+    <!-- Page Container -->
+    <div
+      id="page-container"
+      class="w3-content w3-margin-top"
+      style="max-width: 1400px"
+    >
+      <!-- The Grid -->
+      <div class="w3-row-padding">
+        <!-- Left Column -->
+        <div class="w3-third left-column">
+          <div class="w3-white w3-text-grey w3-card-4">
+            <div class="w3-display-container">
+              <img
+                id="profile-picture"
+                src="./images/employees.png"
+                alt="Employees Image"
+              />
+            </div>
 
-          <a href="index.html">Buscar Funcionários</a>
-          <a href="add-employee.html">Inserir/Atualizar Funcionário</a>
-          <a href="delete-employee.html">Excluir Funcionário</a>
-        </header>
-      </aside>
+            <div class="w3-container menu-item">
+              <p>
+                <i
+                  class="fa fa-search fa-fw w3-margin-right w3-large w3-text-teal"
+                ></i
+                ><a href="index.html">Buscar Funcionários</a>
+              </p>
+              <p>
+                <i
+                  class="fa fa-plus fa-fw w3-margin-right w3-large w3-text-teal"
+                ></i
+                ><a href="add-employee.html">Inserir/Atualizar Funcionário</a>
+              </p>
+              <p>
+                <i
+                  class="fa fa-times fa-fw w3-margin-right w3-large w3-text-teal"
+                ></i
+                ><a href="delete-employee.html">Excluir Funcionário</a>
+              </p>
+            </div>
+          </div>
+          <br />
 
-      <main class="main with-sidebar">
-        <div id="delete-employee">
-          <h1>Excluir Funcionário</h1>
-
-          <form id="delete-form">
-            <label for="cpf">CPF:</label>
-            <input
-              type="text"
-              id="cpf"
-              name="cpf"
-              placeholder="Ex: 999.999.999-99"
-              data-mask="999.999.999-99"
-              required
-            />
-
-            <input type="submit" value="Excluir" />
-          </form>
+          <!-- End Left Column -->
         </div>
-      </main>
+
+        <!-- Right Column -->
+        <div class="w3-twothird right-column">
+          <div
+            class="w3-container w3-card w3-white w3-margin-bottom section"
+            id="about-me"
+          >
+            <h2 class="w3-text-grey w3-padding-16">
+              <i
+                class="fa fa-times fa-fw w3-margin-right w3-xxlarge w3-text-teal"
+              ></i
+              >Excluir Funcionário
+            </h2>
+            <div class="w3-container">
+              <div id="delete-employee">
+                <form id="delete-form">
+                  <label for="cpf" class="w3-text-grey"><b>CPF:</b></label>
+                  <input
+                    type="text"
+                    id="cpf"
+                    name="cpf"
+                    placeholder="Ex: 999.999.999-99"
+                    data-mask="999.999.999-99"
+                    required
+                  />
+
+                  <input type="submit" value="Excluir" />
+                </form>
+              </div>
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--footer class="w3-container w3-teal w3-center w3-margin-top section">
+        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+      </footer-->
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
-    <script src="./scripts/deleteEmployee.js"></script>
+    <script src="./scripts/delete-employee.js"></script>
   </body>
 </html>

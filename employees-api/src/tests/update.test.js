@@ -12,7 +12,7 @@ const employee = {
 };
 
 // testing if
-test("the employee is successfully updated and the message returned is the correct one", () => {
+test("the employee is successfully updated and the returned message is the correct one", () => {
   // adds the employee
   let msg = app.addEmployee(employee);
 

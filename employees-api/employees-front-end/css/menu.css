@@ -1,0 +1,12 @@
+.menu-item a:hover {
+  cursor: pointer;
+  background-color: #f0efef;
+}
+
+.w3-container.menu-item {
+  height: 50vh;
+}
+
+.menu-item a { 
+  text-decoration: none;
+}
